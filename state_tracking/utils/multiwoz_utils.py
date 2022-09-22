@@ -140,12 +140,15 @@ def load_data(data_path: str,
     return MultiwozData(train_json, dev_json, test_json, slot_descriptions)
 
 
-def load_data_for_dstc(train_path, dev_path, slot_path) -> MultiwozData:
+def load_data_for_dstc(train_path, dev_path, test_path, slot_path) -> MultiwozData:
     with open(train_path) as f:
         train_json = json.loads(f.read().lower(), object_pairs_hook=Json)
 
     with open(dev_path) as f:
         dev_json = json.loads(f.read().lower(), object_pairs_hook=Json)
+
+    with open(test_path) as f:
+        test_json = json.loads(f.read().lower(), object_pairs_hook=Json)
 
     # TODO : test_json
 
@@ -163,7 +166,7 @@ def load_data_for_dstc(train_path, dev_path, slot_path) -> MultiwozData:
 
             slot_descriptions[key] = val
 
-    return MultiwozData(train_json, dev_json, Json(), slot_descriptions)
+    return MultiwozData(train_json, dev_json, test_json, slot_descriptions)
 
 
 def load_schema(schema_path: str) -> SchemaInfo:
