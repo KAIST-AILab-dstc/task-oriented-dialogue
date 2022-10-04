@@ -150,8 +150,6 @@ def load_data_for_dstc(train_path, dev_path, test_path, slot_path) -> MultiwozDa
     with open(test_path) as f:
         test_json = json.loads(f.read().lower(), object_pairs_hook=Json)
 
-    # TODO : test_json
-
     with open(slot_path) as f:
         slot_descriptions_raw = json.loads(f.read().lower(), object_pairs_hook=Json)
         slot_descriptions = {}
@@ -159,10 +157,6 @@ def load_data_for_dstc(train_path, dev_path, test_path, slot_path) -> MultiwozDa
             # To be consistent with the keys from extract_belief_state(), rename
             # "book" slots. e.g. "hotel-book people" -> "hotel-people".
             key = key.replace('book ', '')
-            # slot_descriptions.json has a "bus-arriveby" slot that doesn't actually
-            # exist.
-            if key in ('bus-arriveby', 'bus-people'):
-                continue
 
             slot_descriptions[key] = val
 
